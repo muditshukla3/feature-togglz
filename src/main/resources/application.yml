@@ -9,6 +9,11 @@ management:
         include: 'togglz'
 
 spring:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: update
   h2:
     console:
       enabled: true

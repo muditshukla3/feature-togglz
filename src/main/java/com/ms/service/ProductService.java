@@ -1,6 +1,8 @@
 package com.ms.service;
 
 import com.ms.dto.Product;
+import com.ms.repository.ProductRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,20 +11,18 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
+@RequiredArgsConstructor
 public class ProductService {
 
-    private static List<Product> products = Stream.of(new Product(1, "iPhone 11", 50000),
-                    new Product(4, "Macbook Pro", 150000),
-                    new Product(1, "Apple Watch", 30000),
-                    new Product(1, "iPad", 65000))
-            .collect(Collectors.toList());
+    private final ProductRepository productRepository;
+
     public List<Product> getAllProducts(){
-        return this.products;
+        return productRepository.findAll();
     }
 
-    public List<Product> getDiscountedProducts(){
+    public List<Product> getDiscountedProducts(List<Product> productsForDiscount){
         List<Product> productAfterDiscount = new ArrayList<>();
-        this.products.forEach(product -> {
+        productsForDiscount.forEach(product -> {
                     product.setPrice(product.getPrice() - (product.getPrice() *5 / 100));
                     productAfterDiscount.add(product);
                 }

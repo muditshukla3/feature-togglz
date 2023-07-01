@@ -20,13 +20,13 @@ public class ProductController {
 
     private final FeatureManager featureManager;
 
-    public static final Feature discount_applied = new NamedFeature("discount_applied");
+    public static final Feature discount_applied = new NamedFeature("DISCOUNT_APPLIED");
     private final ProductService productService;
 
     @GetMapping("/products")
     public List<Product> getAllProducts(){
         if (featureManager.isActive(discount_applied)){
-            return productService.getDiscountedProducts();
+            return productService.getDiscountedProducts(productService.getAllProducts());
         }
         return productService.getAllProducts();
     }
