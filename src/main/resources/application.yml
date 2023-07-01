@@ -1,12 +1,19 @@
 togglz:
   console:
     secured: false
-  features:
-    discount_applied:
-      enabled: true
 
 management:
   endpoints:
     web:
       exposure:
         include: 'togglz'
+
+spring:
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password: password
+    driverClassName: org.h2.Driver
